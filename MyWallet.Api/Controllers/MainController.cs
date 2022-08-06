@@ -20,22 +20,17 @@ namespace MyWallet.Api.Controllers
             return !_notifier.HaveNotification();
         }
 
-        protected ActionResult CustomResponse(object? result = null)
+        protected new ActionResult Response(object? result = null)
         {
             if (ValidOperation())
             {
-                return Ok(new
-                {
-                    success = true,
-                    data = result
-                });
+                if (result is null)
+                    return Ok();
+
+                return Ok(result);
             }
 
-            return BadRequest(new
-            {
-                success = false,
-                errors = _notifier.GetNotifications().Select(x => x.Message)
-            });
+            return BadRequest(_notifier.GetNotifications().Select(x => x.Message));
         }
 
         protected ActionResult CustomResult(ModelStateDictionary modelState)
@@ -45,7 +40,7 @@ namespace MyWallet.Api.Controllers
                 NotifyInvalidModelError(modelState);
             }
 
-            return CustomResponse();
+            return Response();
         }
 
         protected void NotifyInvalidModelError(ModelStateDictionary modelState)

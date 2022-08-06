@@ -12,8 +12,8 @@ using MyWallet.Infra.Data.Context;
 namespace MyWallet.Infra.Migrations
 {
     [DbContext(typeof(MyWalletContext))]
-    [Migration("20220806164051_CreateSettings")]
-    partial class CreateSettings
+    [Migration("20220806220421_AddPriceInTicker")]
+    partial class AddPriceInTicker
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -106,9 +106,11 @@ namespace MyWallet.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalValue")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("UnitValue")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -116,22 +118,6 @@ namespace MyWallet.Infra.Migrations
                     b.HasIndex("TickerId");
 
                     b.ToTable("Earning");
-                });
-
-            modelBuilder.Entity("MyWallet.Domain.Entities.Settings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("RegisteredCompanies")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Ticker", b =>
@@ -145,11 +131,17 @@ namespace MyWallet.Infra.Migrations
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .IsUnicode(true)
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("Price")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

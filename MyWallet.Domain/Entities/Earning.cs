@@ -1,6 +1,4 @@
-﻿using MyWallet.Domain.Dto;
-
-namespace MyWallet.Domain.Entities
+﻿namespace MyWallet.Domain.Entities
 {
     public class Earning : Entity
     {
@@ -14,16 +12,5 @@ namespace MyWallet.Domain.Entities
         public decimal TotalValue { get; private set; }
 
         protected Earning() { }
-
-        public Earning(EarningDto earningDto)
-        {
-            TickerId = earningDto.TickerId;
-            DividendType = earningDto.DividendType;
-            DateCom = earningDto.DateCom;
-            PaymentDate = earningDto.PaymentDate;
-            Quantity = earningDto.Quantity;
-            UnitValue = earningDto.UnitValue;
-            TotalValue = earningDto.TotalValue;
-        }
     }
 }

@@ -24,6 +24,12 @@ namespace MyWallet.Infra.Repositories
             await SaveChanges();
         }
 
+        public async Task AddRange(IList<TEntity> entities)
+        {
+            await _set.AddRangeAsync(entities);
+            await SaveChanges();
+        }
+
         public virtual async Task<TEntity?> GetById(int id)
         {
             return await _set.FindAsync(id);

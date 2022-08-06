@@ -1,6 +1,4 @@
-﻿using MyWallet.Domain.Dto;
-
-namespace MyWallet.Domain.Entities
+﻿namespace MyWallet.Domain.Entities
 {
     public class Ticker : Entity
     {
@@ -13,12 +11,9 @@ namespace MyWallet.Domain.Entities
 
         protected Ticker() { }
 
-        public Ticker(TickerDto tickerDto)
+        public Ticker(string code)
         {
-            Code = tickerDto.Code;
-            CompanyId = tickerDto.CompanyId;
-            Price = tickerDto.Price;
-            UpdateDate = tickerDto.UpdateDate;
+            Code = code;
         }
 
         public void UpdatePrice(decimal price)

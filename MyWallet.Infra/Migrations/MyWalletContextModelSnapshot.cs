@@ -44,7 +44,7 @@ namespace MyWallet.Infra.Migrations
 
                     b.HasAlternateKey("Cnpj");
 
-                    b.ToTable("Administrator", (string)null);
+                    b.ToTable("Administrator");
                 });
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Company", b =>
@@ -77,7 +77,7 @@ namespace MyWallet.Infra.Migrations
 
                     b.HasIndex("AdministratorId");
 
-                    b.ToTable("Company", (string)null);
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Earning", b =>
@@ -104,32 +104,18 @@ namespace MyWallet.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalValue")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("UnitValue")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TickerId");
 
-                    b.ToTable("Earning", (string)null);
-                });
-
-            modelBuilder.Entity("MyWallet.Domain.Entities.Settings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("RegisteredCompanies")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Settings", (string)null);
+                    b.ToTable("Earning");
                 });
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Ticker", b =>
@@ -143,13 +129,13 @@ namespace MyWallet.Infra.Migrations
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .IsUnicode(true)
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -161,7 +147,7 @@ namespace MyWallet.Infra.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Ticker", (string)null);
+                    b.ToTable("Ticker");
                 });
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Company", b =>

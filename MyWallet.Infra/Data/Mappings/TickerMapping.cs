@@ -13,7 +13,6 @@ namespace MyWallet.Infra.Data.Mappings
             builder.HasAlternateKey(x => x.Code);
 
             builder.Property(x => x.Code)
-                .IsUnicode()
                 .HasMaxLength(11)
                 .IsRequired();
 

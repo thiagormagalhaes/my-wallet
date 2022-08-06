@@ -1,5 +1,5 @@
-﻿using MyWallet.Domain.Dto;
-using MyWallet.Domain.Enums;
+﻿using MyWallet.Domain.Enums;
+using MyWallet.Domain.ValueObjects;
 
 namespace MyWallet.Domain.Entities
 {
@@ -14,12 +14,11 @@ namespace MyWallet.Domain.Entities
 
         protected Company() { }
 
-        public Company(CompanyDto companyDto)
+        public Company(CompanyCSV companyCSV, CategoryType categoryType)
         {
-            Name = companyDto.Name;
-            Cnpj = companyDto.Cnpj;
-            Category = companyDto.Category;
-            AdministratorId = companyDto.AdministratorId;
+            Name = companyCSV.Company;
+            Cnpj = companyCSV.Cnpj;
+            Category = categoryType;
         }
 
         public void AddTicker(Ticker ticker)

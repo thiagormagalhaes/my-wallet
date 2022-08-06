@@ -13,6 +13,8 @@ namespace MyWallet.Infra.Migrations
                 name: "Price",
                 table: "Ticker",
                 type: "decimal(18,2)",
+                precision: 18,
+                scale: 2,
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(

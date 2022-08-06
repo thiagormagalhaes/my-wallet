@@ -1,6 +1,4 @@
-﻿using MyWallet.Domain.Dto;
-
-namespace MyWallet.Domain.Entities
+﻿namespace MyWallet.Domain.Entities
 {
     public class Administrator : Entity
     {
@@ -8,11 +6,5 @@ namespace MyWallet.Domain.Entities
         public string Cnpj { get; private set; }
 
         protected Administrator() { }
-
-        public Administrator(AdministratorDto administratorDto)
-        {
-            Name = administratorDto.Name;
-            Cnpj = administratorDto.Cnpj;
-        }
     }
 }
