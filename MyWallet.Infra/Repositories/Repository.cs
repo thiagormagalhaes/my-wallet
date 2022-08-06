@@ -63,7 +63,9 @@ namespace MyWallet.Infra.Repositories
             var exist = _set.Find(entity.Id);
 
             if (exist is null)
+            {
                 return;
+            }
 
             _context.Entry(exist).CurrentValues.SetValues(entity);
 

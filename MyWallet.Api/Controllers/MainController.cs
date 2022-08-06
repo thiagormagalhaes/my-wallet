@@ -25,7 +25,9 @@ namespace MyWallet.Api.Controllers
             if (ValidOperation())
             {
                 if (result is null)
+                {
                     return Ok();
+                }
 
                 return Ok(result);
             }
