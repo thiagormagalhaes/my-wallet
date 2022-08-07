@@ -25,5 +25,10 @@ namespace MyWallet.Domain.Entities
         {
             Tickers.Add(ticker);
         }
+
+        public void UpdateAdministrator(Administrator administrator)
+        {
+            Administrator = administrator;
+        }
     }
 }

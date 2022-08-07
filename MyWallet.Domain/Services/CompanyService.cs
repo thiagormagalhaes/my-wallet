@@ -19,27 +19,13 @@ namespace MyWallet.Domain.Services
 
         public async Task Import(IFormFile file, CategoryType categoryType)
         {
-            var companies = ConvertCsvToCompanies(file, categoryType);
-
-            await _companyRepository.AddRange(companies);
-        }
-
-        private IList<Company> ConvertCsvToCompanies(IFormFile file, CategoryType categoryType)
-        {
-            var companies = new Dictionary<string, Company>();
-
             var companiesCSV = ConvertCsvToCompaniesCsv(file);
 
-            foreach (var companyCSV in companiesCSV)
-            {
-                BuildCompanyInDictionary(companies, companyCSV, categoryType);
+            var administrators = BuildAdministrators(companiesCSV, categoryType);
 
-                var ticker = new Ticker(companyCSV.Ticker);
+            var companies = BuildCompanies(companiesCSV, administrators, categoryType);
 
-                companies[companyCSV.Cnpj].AddTicker(ticker);
-            }
-
-            return new List<Company>(companies.Values);
+            await _companyRepository.AddRange(companies);
         }
 
         private IList<CompanyCSV> ConvertCsvToCompaniesCsv(IFormFile file)
@@ -59,13 +45,58 @@ namespace MyWallet.Domain.Services
             return companiesCSV;
         }
 
-        private void BuildCompanyInDictionary(Dictionary<string, Company> dictionary, CompanyCSV companyCSV, CategoryType categoryType)
+        private Dictionary<string, Administrator> BuildAdministrators(IList<CompanyCSV> companiesCSV, CategoryType categoryType)
         {
-            if (!dictionary.ContainsKey(companyCSV.Cnpj))
+            var administrators = new Dictionary<string, Administrator>();
+
+            if (categoryType == CategoryType.Stock)
             {
-                dictionary.Add(companyCSV.Cnpj, new Company(companyCSV, categoryType));
+                return administrators;
+            }
+
+            foreach (var companyCSV in companiesCSV)
+            {
+                AddAdministratorInDictionary(administrators, companyCSV);
+            }
+
+            return administrators;
+        }
+
+        private void AddAdministratorInDictionary(Dictionary<string, Administrator> administrators, CompanyCSV companyCSV)
+        {
+            if (!administrators.ContainsKey(companyCSV.AdministratorCnpj))
+            {
+                administrators.Add(companyCSV.AdministratorCnpj, new Administrator(companyCSV.Administrator, companyCSV.AdministratorCnpj));
             }
         }
 
+        private IList<Company> BuildCompanies(IList<CompanyCSV> companiesCSV, Dictionary<string, Administrator> administrators, CategoryType categoryType)
+        {
+            var companies = new Dictionary<string, Company>();
+
+            foreach (var companyCSV in companiesCSV)
+            {
+                AddCompanyInDictionary(companies, administrators, companyCSV, categoryType);
+            }
+
+            return new List<Company>(companies.Values);
+        }
+
+        private void AddCompanyInDictionary(Dictionary<string, Company> companies, Dictionary<string, Administrator> administrators, CompanyCSV companyCSV, CategoryType categoryType)
+        {
+            if (!companies.ContainsKey(companyCSV.Cnpj))
+            {
+                companies.Add(companyCSV.Cnpj, new Company(companyCSV, categoryType));
+            }
+
+            var ticker = new Ticker(companyCSV.Ticker);
+
+            companies[companyCSV.Cnpj].AddTicker(ticker);
+
+            if (categoryType == CategoryType.RealEstate)
+            {
+                companies[companyCSV.Cnpj].UpdateAdministrator(administrators[companyCSV.AdministratorCnpj]);
+            }
+        }
     }
 }

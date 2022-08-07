@@ -16,9 +16,17 @@ namespace MyWallet.Api.Controllers
         }
 
         [HttpPost("import-stocks")]
-        public async Task<IActionResult> Load(IFormFile file)
+        public async Task<IActionResult> ImportStocks(IFormFile file)
         {
             await _companyService.Import(file, CategoryType.Stock);
+
+            return Response();
+        }
+
+        [HttpPost("import-real-estate")]
+        public async Task<IActionResult> ImportRealEstate(IFormFile file)
+        {
+            await _companyService.Import(file, CategoryType.RealEstate);
 
             return Response();
         }
