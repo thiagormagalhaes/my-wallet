@@ -5,6 +5,6 @@ namespace MyWallet.Domain.Interfaces.Services
 {
     public interface ICompanyService
     {
-        Task Import(IFormFile file, CategoryType categoryType);
+        Task Import(IFormFile file, CategoryType category);
     }
 }

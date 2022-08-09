@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyWallet.Infra.Data.Context;
 
@@ -11,9 +12,10 @@ using MyWallet.Infra.Data.Context;
 namespace MyWallet.Infra.Migrations
 {
     [DbContext(typeof(MyWalletContext))]
-    partial class MyWalletContextModelSnapshot : ModelSnapshot
+    [Migration("20220809003507_AddNegociation")]
+    partial class AddNegociation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

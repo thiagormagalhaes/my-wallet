@@ -14,11 +14,11 @@ namespace MyWallet.Domain.Entities
 
         protected Company() { }
 
-        public Company(CompanyCSV companyCSV, CategoryType categoryType)
+        public Company(CompanyCSV companyCSV, CategoryType category)
         {
             Name = companyCSV.Company;
             Cnpj = companyCSV.Cnpj;
-            Category = categoryType;
+            Category = category;
         }
 
         public void AddTicker(Ticker ticker)
