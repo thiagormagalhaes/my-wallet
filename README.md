@@ -5,7 +5,11 @@
 ## Entidades
 
  **- Administrator**: Empresa que tem por finalidade cuidar de todos os aspectos cotidianos para que um fundo de investimento funcione bem. [Saiba mais.](https://www.suno.com.br/artigos/administrador-de-fundos/)
+ 
  **- Company**: Ações ou Fundos imobiliário listados na bolsa de valores.
+ 
  **- Earning**: Benefício que a companhia distribue para os seus acionistas ou cotistas quando registram lucros.
+ 
  **- Negociation**: Registro das negociações de compra e venda de cotas das companhias.
+ 
  **- Ticker**: É o código de uma companhia na bolsa de valores.
