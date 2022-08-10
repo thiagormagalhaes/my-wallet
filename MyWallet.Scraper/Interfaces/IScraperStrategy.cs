@@ -1,7 +1,12 @@
-﻿namespace MyWallet.Scraper.Interfaces
+﻿using MyWallet.Domain.Enums;
+using MyWallet.Scraper.Dto;
+
+namespace MyWallet.Scraper.Interfaces
 {
     public interface IScraperStrategy
     {
-        object Execute();
+        bool ApplyTo(CategoryType category);
+
+        ScraperStrategyResponse Execute();
     }
 }
