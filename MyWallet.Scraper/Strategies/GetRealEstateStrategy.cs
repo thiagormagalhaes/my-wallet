@@ -1,56 +1,55 @@
-﻿using AngleSharp.Dom;
-using MyWallet.Domain.Dto;
-using MyWallet.Scraper.Interfaces;
+﻿using MyWallet.Domain.Enums;
+using MyWallet.Scraper.Dto;
+using MyWallet.Scraper.Extensions;
 
 namespace MyWallet.Scraper.Strategies
 {
-    public class GetRealEstateStrategy : IScraperStrategy
+    public class GetRealEstateStrategy : ScraperStrategy
     {
-
-
-        public GetRealEstateStrategy(IDocument realEstate)
+        public override bool ApplyTo(CategoryType category)
         {
-            _realEstate = realEstate;
+            return category == CategoryType.RealEstate;
         }
 
-        public string GetAdministrator()
+        public override ScraperStrategyResponse GetScraperStrategyResponse()
         {
-            throw new NotImplementedException();
-        }
-
-        public object Execute()
-        {
-            return new StockDto(
+            return new ScraperStrategyResponse(
                 GetName(),
                 GetCnpj(),
                 "",
-                GetPrice()
+                GetCurrentPrice(),
+                new AdministratorDto(GetAdministrator(), GetAdministratorCnpj())
             );
         }
 
-        public string GetAdministratorCnpj()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetCnpj()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetName()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetPrice()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static string GetUrl(string ticker)
+        public override string GetUrl(string ticker)
         {
             return $"https://statusinvest.com.br/fundos-imobiliarios/{ticker}";
+        }
+
+        private string GetAdministratorCnpj()
+        {
+            return _document.GetTextBySelector("#fund-section > div > div > div:nth-child(3) > div > div.card-body.mt-2 > div.text-center.mb-3 > div > span");
+        }
+
+        private string GetAdministrator()
+        {
+            return _document.GetTextBySelector("#fund-section > div > div > div:nth-child(3) > div > div.card-body.mt-2 > div.text-center.mb-3 > div > strong");
+        }
+
+        private string GetCnpj()
+        {
+            return _document.GetTextBySelector("#fund-section > div > div > div:nth-child(2) > div > div:nth-child(1) > div > div > strong");
+        }
+
+        private string GetCurrentPrice()
+        {
+            return _document.GetTextBySelector("#main-2 > div.container.pb-7 > div.top-info.d-flex.flex-wrap.justify-between.mb-3.mb-md-5 > div.info.special.w-100.w-md-33.w-lg-20 > div > div:nth-child(1) > strong");
+        }
+
+        private string GetName()
+        {
+            return _document.GetTextBySelector("#fund-section > div > div > div:nth-child(2) > div > div:nth-child(2) > div > div > div > strong");
         }
     }
 }

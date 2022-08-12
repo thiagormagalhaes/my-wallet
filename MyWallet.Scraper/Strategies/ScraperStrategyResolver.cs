@@ -10,9 +10,9 @@ namespace MyWallet.Scraper.Strategies
 {
     public class ScraperStrategyResolver : IScraperStrategyResolver
     {
-        private readonly IScraperStrategy[] _strategies;
+        private readonly IEnumerable<IScraperStrategy> _strategies;
 
-        public ScraperStrategyResolver(IScraperStrategy[] strategies)
+        public ScraperStrategyResolver(IEnumerable<IScraperStrategy> strategies)
         {
             _strategies = strategies;
         }

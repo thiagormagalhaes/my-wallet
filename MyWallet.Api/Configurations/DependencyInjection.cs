@@ -4,6 +4,7 @@ using MyWallet.Domain.Notifications;
 using MyWallet.Domain.Services;
 using MyWallet.Infra.Data.Context;
 using MyWallet.Infra.Repositories;
+using MyWallet.Scraper.Extensions;
 
 namespace MyWallet.Api.Configurations
 {
@@ -26,6 +27,7 @@ namespace MyWallet.Api.Configurations
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScrapperStrategy();
         }
 
         public static void RegisterRepositories(this IServiceCollection services)

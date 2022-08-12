@@ -1,4 +1,5 @@
-﻿using MyWallet.Domain.Enums;
+﻿using AngleSharp.Dom;
+using MyWallet.Domain.Enums;
 using MyWallet.Scraper.Dto;
 
 namespace MyWallet.Scraper.Interfaces
@@ -7,6 +8,6 @@ namespace MyWallet.Scraper.Interfaces
     {
         bool ApplyTo(CategoryType category);
 
-        ScraperStrategyResponse Execute();
+        Task<ScraperStrategyResponse> Execute(string ticker);
     }
 }
