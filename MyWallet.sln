@@ -5,16 +5,18 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.Api", "MyWallet.Api\MyWallet.Api.csproj", "{47F8C551-46DE-4D8C-9CE2-611D77809A2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWallet.Domain", "MyWallet.Domain\MyWallet.Domain.csproj", "{A26E1037-DBBB-411F-8138-4717B67FA3DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.Domain", "MyWallet.Domain\MyWallet.Domain.csproj", "{A26E1037-DBBB-411F-8138-4717B67FA3DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWallet.Infra", "MyWallet.Infra\MyWallet.Infra.csproj", "{D5842872-419A-47C8-A628-D4B71F3D3106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.Infra", "MyWallet.Infra\MyWallet.Infra.csproj", "{D5842872-419A-47C8-A628-D4B71F3D3106}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWallet.Test", "MyWallet.Test\MyWallet.Test.csproj", "{755DAE49-FEEE-4180-A44D-8C8603886F8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.Test", "MyWallet.Test\MyWallet.Test.csproj", "{755DAE49-FEEE-4180-A44D-8C8603886F8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D83652C-F6E0-4E3C-9A89-E8A5E77F4929}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWallet.Scraper", "MyWallet.Scraper\MyWallet.Scraper.csproj", "{29EE594E-0ADA-459F-B479-2A230D2CFE72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{755DAE49-FEEE-4180-A44D-8C8603886F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{755DAE49-FEEE-4180-A44D-8C8603886F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{755DAE49-FEEE-4180-A44D-8C8603886F8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29EE594E-0ADA-459F-B479-2A230D2CFE72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29EE594E-0ADA-459F-B479-2A230D2CFE72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29EE594E-0ADA-459F-B479-2A230D2CFE72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29EE594E-0ADA-459F-B479-2A230D2CFE72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
