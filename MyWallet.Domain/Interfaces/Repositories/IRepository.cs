@@ -6,10 +6,11 @@ namespace MyWallet.Domain.Interfaces.Repositories
     {
         Task Add(TEntity entity);
         Task AddRange(IList<TEntity> entities);
-        Task<TEntity?> GetById(int id);
+        Task<IList<TEntity>> GetAll();
+        Task<TEntity?> GetById(long id);
         Task<IQueryable<TEntity>> FilterBy(Expression<Func<TEntity, bool>> filterExpression);
         Task Update(TEntity entity);
-        Task Remove(params int[] ids);
+        Task Remove(params long[] ids);
         Task Remove(TEntity entity);
         Task RemoveAll();
         Task SaveChanges();

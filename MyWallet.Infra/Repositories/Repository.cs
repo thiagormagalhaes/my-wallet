@@ -30,7 +30,12 @@ namespace MyWallet.Infra.Repositories
             await SaveChanges();
         }
 
-        public virtual async Task<TEntity?> GetById(int id)
+        public virtual async Task<IList<TEntity>> GetAll()
+        {
+            return await _set.Select(x => x).ToListAsync();
+        }
+
+        public virtual async Task<TEntity?> GetById(long id)
         {
             return await _set.FindAsync(id);
         }
@@ -40,7 +45,7 @@ namespace MyWallet.Infra.Repositories
             return await Task.FromResult(_set.Where(filterExpression));
         }
 
-        public async Task Remove(params int[] ids)
+        public async Task Remove(params long[] ids)
         {
             _set.Where(d => ids.Contains(d.Id)).Delete();
             await SaveChanges();

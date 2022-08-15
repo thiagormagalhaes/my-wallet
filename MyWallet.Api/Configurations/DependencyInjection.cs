@@ -13,6 +13,7 @@ namespace MyWallet.Api.Configurations
         public static void ResolveDependencies(this IServiceCollection services)
         {
             services.AddScoped<INotifier, Notifier>();
+            services.AddScrapperStrategy();
 
             RegisterContexts(services);
             RegisterServices(services);
@@ -27,12 +28,14 @@ namespace MyWallet.Api.Configurations
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScrapperStrategy();
+            services.AddScoped<INegociationService, NegociationService>();
         }
 
         public static void RegisterRepositories(this IServiceCollection services)
         {
+            services.AddScoped<ITickerRepository, TickerRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<INegociationRepository, NegociationRepository>();
         }
     }
 }

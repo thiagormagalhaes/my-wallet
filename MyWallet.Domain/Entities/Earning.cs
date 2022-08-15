@@ -2,7 +2,7 @@
 {
     public class Earning : Entity
     {
-        public int TickerId { get; private set; }
+        public long TickerId { get; private set; }
         public virtual Ticker Ticker { get; private set; }
         public int DividendType { get; private set; }
         public DateTime DateCom { get; private set; }

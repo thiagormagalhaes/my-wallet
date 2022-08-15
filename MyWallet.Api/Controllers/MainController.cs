@@ -52,13 +52,8 @@ namespace MyWallet.Api.Controllers
             foreach (var erro in erros)
             {
                 var errorMessage = erro.Exception == null ? erro.ErrorMessage : erro.Exception.Message;
-                NotifyError(errorMessage);
+                _notifier.NotifyError(errorMessage);
             }
-        }
-
-        protected void NotifyError(string message)
-        {
-            _notifier.Handle(new Notification(message));
         }
     }
 }

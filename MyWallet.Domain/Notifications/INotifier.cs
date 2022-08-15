@@ -5,5 +5,6 @@
         bool HaveNotification();
         List<Notification> GetNotifications();
         void Handle(Notification notification);
+        void NotifyError(string message);
     }
 }

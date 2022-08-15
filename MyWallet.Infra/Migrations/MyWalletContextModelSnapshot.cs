@@ -24,11 +24,11 @@ namespace MyWallet.Infra.Migrations
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Administrator", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
@@ -49,14 +49,14 @@ namespace MyWallet.Infra.Migrations
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Company", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<int?>("AdministratorId")
-                        .HasColumnType("int");
+                    b.Property<long?>("AdministratorId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Category")
                         .HasColumnType("int");
@@ -82,11 +82,11 @@ namespace MyWallet.Infra.Migrations
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Earning", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("DateCom")
                         .HasColumnType("datetime2");
@@ -100,8 +100,8 @@ namespace MyWallet.Infra.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("TickerId")
-                        .HasColumnType("int");
+                    b.Property<long>("TickerId")
+                        .HasColumnType("bigint");
 
                     b.Property<decimal>("TotalValue")
                         .HasPrecision(18, 2)
@@ -120,14 +120,14 @@ namespace MyWallet.Infra.Migrations
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Negociation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("DateOperation")
                         .HasColumnType("datetime2");
@@ -151,19 +151,19 @@ namespace MyWallet.Infra.Migrations
 
             modelBuilder.Entity("MyWallet.Domain.Entities.Ticker", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint");
 
                     b.Property<decimal?>("Price")
                         .HasPrecision(18, 2)

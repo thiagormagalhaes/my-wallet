@@ -22,8 +22,9 @@ namespace MyWallet.Scraper.Strategies
             var strategy = _strategies.FirstOrDefault(c => c.ApplyTo(category));
 
             if (strategy == null)
+            {
                 throw new ArgumentException($"No has strategy for category {category}.");
-
+            }
 
             return strategy;
         }

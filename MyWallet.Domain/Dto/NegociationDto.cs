@@ -4,7 +4,7 @@ namespace MyWallet.Domain.Dto;
 
 public record NegociationDto(
     DateTime DateOperation,
-    int CompanyId,
+    long CompanyId,
     OperationType Operation,
     int Quantity,
     decimal UnitPrice

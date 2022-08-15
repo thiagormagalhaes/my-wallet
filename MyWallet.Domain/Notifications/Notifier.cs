@@ -14,6 +14,11 @@
             _notifcations.Add(notification);
         }
 
+        public void NotifyError(string message)
+        {
+            _notifcations.Add(new Notification(message));
+        }
+
         public List<Notification> GetNotifications()
         {
             return _notifcations;

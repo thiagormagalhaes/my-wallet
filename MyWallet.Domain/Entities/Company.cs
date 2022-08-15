@@ -8,7 +8,7 @@ namespace MyWallet.Domain.Entities
         public string Name { get; private set; }
         public string Cnpj { get; private set; }
         public CategoryType Category { get; private set; }
-        public int? AdministratorId { get; private set; }
+        public long? AdministratorId { get; private set; }
         public virtual Administrator Administrator { get; private set; }
         public virtual IList<Ticker> Tickers { get; private set; } = new List<Ticker>();
 
