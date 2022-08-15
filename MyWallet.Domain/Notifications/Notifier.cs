@@ -2,7 +2,7 @@
 {
     public class Notifier : INotifier
     {
-        private List<Notification> _notifcations;
+        private readonly List<Notification> _notifcations;
 
         public Notifier()
         {

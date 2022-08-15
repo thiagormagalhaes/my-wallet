@@ -82,7 +82,9 @@ namespace MyWallet.Domain.Services
         private OperationType GetOperationType(string operationType)
         {
             if (operationType == "C")
+            {
                 return OperationType.Buy;
+            }
 
             return OperationType.Sell;
         }
