@@ -1,4 +1,6 @@
-﻿namespace MyWallet.Domain.Entities
+﻿using MyWallet.Domain.Dto;
+
+namespace MyWallet.Domain.Entities
 {
     public class Ticker : Entity
     {
@@ -10,6 +12,17 @@
         public virtual IList<Earning> Earnings { get; private set; } = new List<Earning>();
 
         protected Ticker() { }
+
+        public Ticker(TickerDto tickerDto)
+        {
+            Code = tickerDto.Code;
+            CompanyId = tickerDto.CompanyId;
+
+            if (tickerDto.Price.HasValue)
+            {
+                UpdatePrice(tickerDto.Price.Value);
+            }
+        }
 
         public Ticker(string code)
         {

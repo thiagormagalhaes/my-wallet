@@ -1,4 +1,5 @@
-﻿using MyWallet.Domain.Enums;
+﻿using MyWallet.Domain.Dto;
+using MyWallet.Domain.Enums;
 using MyWallet.Domain.ValueObjects;
 
 namespace MyWallet.Domain.Entities
@@ -7,14 +8,22 @@ namespace MyWallet.Domain.Entities
     {
         public string Name { get; private set; }
         public string Cnpj { get; private set; }
-        public CategoryType Category { get; private set; }
+        public Category Category { get; private set; }
         public long? AdministratorId { get; private set; }
         public virtual Administrator Administrator { get; private set; }
         public virtual IList<Ticker> Tickers { get; private set; } = new List<Ticker>();
 
         protected Company() { }
 
-        public Company(CompanyCSV companyCSV, CategoryType category)
+        public Company(CompanyDto companyDto)
+        {
+            Name = companyDto.Name;
+            Cnpj = companyDto.Cnpj;
+            Category = companyDto.Category;
+            AdministratorId = companyDto.AdministratorId;
+        }
+
+        public Company(CompanyCSV companyCSV, Category category)
         {
             Name = companyCSV.Company;
             Cnpj = companyCSV.Cnpj;
@@ -29,6 +38,11 @@ namespace MyWallet.Domain.Entities
         public void UpdateAdministrator(Administrator administrator)
         {
             Administrator = administrator;
+        }
+
+        public bool HasTicker(string tickerCode)
+        {
+            return Tickers.Count(x => x.Code == tickerCode) > 0;
         }
     }
 }

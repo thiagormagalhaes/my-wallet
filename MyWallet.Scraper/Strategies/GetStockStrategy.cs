@@ -1,18 +1,18 @@
-﻿using MyWallet.Domain.Enums;
-using MyWallet.Scraper.Dto;
+﻿using MyWallet.Scraper.Dto;
+using MyWallet.Scraper.Enums;
 using MyWallet.Scraper.Extensions;
 
 namespace MyWallet.Scraper.Strategies
 {
     public class GetStockStrategy : ScraperStrategy
     {
-        public override bool ApplyTo(CategoryType category)
+        public override bool ApplyTo(int category)
         {
-            return category == CategoryType.Stock;
+            return category == Category.Stock.GetHashCode();
         }
         public override ScraperStrategyResponse GetScraperStrategyResponse()
         {
-            return new ScraperStrategyResponse(GetName(), GetCnpj(), "", GetPrice());
+            return new ScraperStrategyResponse(GetName(), GetCnpj(), GetPrice());
         }
 
         public override string GetUrl(string ticker)

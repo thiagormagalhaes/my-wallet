@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyWallet.Globalization\MyWallet.Globalization.csproj" />
+    <ProjectReference Include="..\MyWallet.Scraper\MyWallet.Scraper.csproj" />
   </ItemGroup>
 
 </Project>

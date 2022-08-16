@@ -1,6 +1,5 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
-using MyWallet.Domain.Enums;
 using MyWallet.Scraper.Dto;
 using MyWallet.Scraper.Interfaces;
 
@@ -8,7 +7,7 @@ public abstract class ScraperStrategy : IScraperStrategy
 {
     protected IDocument _document;
 
-    public abstract bool ApplyTo(CategoryType category);
+    public abstract bool ApplyTo(int category);
 
     public async Task<ScraperStrategyResponse> Execute(string ticker)
     {

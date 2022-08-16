@@ -24,6 +24,7 @@ namespace MyWallet.Domain.Services
             _tickerRepository = tickerRepository;
         }
 
+        // TODO: Ainda não foi testado :D
         public async Task Import(IFormFile file)
         {
             var tickers = await _tickerRepository.GetAll();
@@ -53,6 +54,7 @@ namespace MyWallet.Domain.Services
 
                 if (tickerId is null)
                 {
+                    // TODO: Exibir apenas uma mensagem por Ticker
                     _notifier.NotifyError(string.Format(Resources.TickerNotFound, negociationCSV.Ticker));
                     continue;
                 }

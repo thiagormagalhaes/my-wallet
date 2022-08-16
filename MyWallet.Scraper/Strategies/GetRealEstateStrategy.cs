@@ -1,14 +1,14 @@
-﻿using MyWallet.Domain.Enums;
-using MyWallet.Scraper.Dto;
+﻿using MyWallet.Scraper.Dto;
+using MyWallet.Scraper.Enums;
 using MyWallet.Scraper.Extensions;
 
 namespace MyWallet.Scraper.Strategies
 {
     public class GetRealEstateStrategy : ScraperStrategy
     {
-        public override bool ApplyTo(CategoryType category)
+        public override bool ApplyTo(int category)
         {
-            return category == CategoryType.RealEstate;
+            return category == Category.RealEstate.GetHashCode();
         }
 
         public override ScraperStrategyResponse GetScraperStrategyResponse()
@@ -16,7 +16,6 @@ namespace MyWallet.Scraper.Strategies
             return new ScraperStrategyResponse(
                 GetName(),
                 GetCnpj(),
-                "",
                 GetCurrentPrice(),
                 new AdministratorDto(GetAdministrator(), GetAdministratorCnpj())
             );

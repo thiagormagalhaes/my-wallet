@@ -1,10 +1,4 @@
-﻿using MyWallet.Domain.Enums;
-using MyWallet.Scraper.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyWallet.Scraper.Interfaces;
 
 namespace MyWallet.Scraper.Strategies
 {
@@ -17,7 +11,7 @@ namespace MyWallet.Scraper.Strategies
             _strategies = strategies;
         }
 
-        public IScraperStrategy FindStrategy(CategoryType category)
+        public IScraperStrategy FindStrategy(int category)
         {
             var strategy = _strategies.FirstOrDefault(c => c.ApplyTo(category));
 

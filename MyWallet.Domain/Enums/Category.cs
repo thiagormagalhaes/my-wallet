@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyWallet.Domain.Enums
 {
-    public enum CategoryType
+    public enum Category
     {
         Stock = 1,
         RealEstate = 2

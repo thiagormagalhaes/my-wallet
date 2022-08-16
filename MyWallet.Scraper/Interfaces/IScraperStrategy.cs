@@ -1,12 +1,10 @@
-﻿using AngleSharp.Dom;
-using MyWallet.Domain.Enums;
-using MyWallet.Scraper.Dto;
+﻿using MyWallet.Scraper.Dto;
 
 namespace MyWallet.Scraper.Interfaces
 {
     public interface IScraperStrategy
     {
-        bool ApplyTo(CategoryType category);
+        bool ApplyTo(int category);
 
         Task<ScraperStrategyResponse> Execute(string ticker);
     }
