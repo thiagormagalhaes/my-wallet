@@ -47,7 +47,7 @@ namespace MyWallet.Domain.Entities
 
         public bool HasTicker(string tickerCode)
         {
-            return Tickers.Count(x => x.Code == tickerCode.ToUpper()) > 0;
+            return Tickers.Count(x => x.Code == tickerCode.ToUpperInvariant()) > 0;
         }
     }
 }
