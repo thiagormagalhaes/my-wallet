@@ -24,7 +24,6 @@ namespace MyWallet.Domain.Services
             _tickerRepository = tickerRepository;
         }
 
-        // TODO: Ainda não foi testado :D
         public async Task Import(IFormFile file)
         {
             var tickers = await _tickerRepository.GetAll();
@@ -33,15 +32,17 @@ namespace MyWallet.Domain.Services
 
             var recordedNegociations = await _negociationRepository.GetAll();
 
-            var newNegociations = BuildNegociations(tickers, negociationsCSV)
+            var negociations = BuildNegociations(tickers, negociationsCSV)
                 .OrderBy(x => x.DateOperation)
                 .Skip(recordedNegociations.Count)
                 .ToList();
 
-            if (!_notifier.HaveNotification())
+            if (_notifier.HaveNotification())
             {
-                await _negociationRepository.AddRange(newNegociations);
+                return;
             }
+
+            await _negociationRepository.AddRange(negociations);
         }
 
         private List<Negociation> BuildNegociations(IList<Ticker> tickers, IList<NegociationCSV> negociationsCSV)
@@ -91,9 +92,6 @@ namespace MyWallet.Domain.Services
             return OperationType.Sell;
         }
 
-        private long? GetTickerByCode(IList<Ticker> tickers, string code)
-        {
-            return tickers.Where(x => x.Code == code).FirstOrDefault()?.Id;
-        }
+        private long? GetTickerByCode(IList<Ticker> tickers, string code) => tickers.Where(x => x.Code == code).FirstOrDefault()?.Id;
     }
 }

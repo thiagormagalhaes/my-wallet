@@ -40,9 +40,14 @@ namespace MyWallet.Domain.Entities
             Administrator = administrator;
         }
 
+        public void UpdateName(string name)
+        {
+            Name = name;
+        }
+
         public bool HasTicker(string tickerCode)
         {
-            return Tickers.Count(x => x.Code == tickerCode) > 0;
+            return Tickers.Count(x => x.Code == tickerCode.ToUpper()) > 0;
         }
     }
 }

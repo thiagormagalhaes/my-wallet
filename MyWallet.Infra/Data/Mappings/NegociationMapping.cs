@@ -11,9 +11,9 @@ namespace MyWallet.Infra.Data.Mappings
             builder.Property(x => x.DateOperation)
                 .IsRequired();
 
-            builder.HasOne(x => x.Company)
+            builder.HasOne(x => x.Ticker)
                 .WithMany()
-                .HasForeignKey(x => x.CompanyId)
+                .HasForeignKey(x => x.TickerId)
                 .IsRequired();
 
             builder.Property(x => x.Operation)

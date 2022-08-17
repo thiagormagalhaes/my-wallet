@@ -15,7 +15,7 @@ namespace MyWallet.Domain.Entities
 
         public Ticker(TickerDto tickerDto)
         {
-            Code = tickerDto.Code;
+            Code = tickerDto.Code.ToUpper();
             CompanyId = tickerDto.CompanyId;
 
             if (tickerDto.Price.HasValue)

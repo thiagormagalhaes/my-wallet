@@ -32,9 +32,9 @@ namespace MyWallet.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Create(Category category, string tickerCode)
+        public async Task<IActionResult> CreateOrUpdate(Category category, string tickerCode)
         {
-            await _companyService.CreateOrUpdate(category, tickerCode.Trim());
+            await _companyService.CreateOrUpdate(category, tickerCode);
 
             return Response();
         }

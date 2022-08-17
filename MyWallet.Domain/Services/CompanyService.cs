@@ -95,12 +95,18 @@ namespace MyWallet.Domain.Services
             if (company is null)
             {
                 company = await Create(category, scraperStrategyResponse);
+            } else
+            {
+                company.UpdateName(scraperStrategyResponse.Name);
+                await _companyRepository.Update(company);
             }
 
             if (!company.HasTicker(tickerCode))
             {
                 await AddTicker(company, tickerCode, scraperStrategyResponse.GetPrice());
-            }            
+            }
+
+            // TODO: Contemplar as Company que possuem Administrator
         }
 
         private async Task<Company> Create(Category category, ScraperStrategyResponse scraperStrategyResponse)
