@@ -6,10 +6,16 @@
 
  **- Administrator**: Empresa que tem por finalidade cuidar de todos os aspectos cotidianos para que um fundo de investimento funcione bem. [Saiba mais.](https://www.suno.com.br/artigos/administrador-de-fundos/)
  
- **- Company**: Ações ou Fundos imobiliário listados na bolsa de valores.
+ **- Company**: Ação ou Fundo imobiliário listado na bolsa de valores.
  
- **- Earning**: Benefício que a companhia distribue para os seus acionistas ou cotistas quando registram lucros.
+ **- Earning**: Benefício que a *Company* distribue para os seus acionistas ou cotistas quando registram lucros.
  
- **- Negociation**: Registro das negociações de compra e venda de cotas das companhias.
+ **- Negociation**: Registro de negociação de compra e venda de cotas das *Companies*.
+
+ **- Patrimony**: *Company* que compõe sua carteira.
+
+ **- Recommended Wallet**: Carteira de recomendação.
+
+ **- Recommendation**: *Company* presente na *Recommended Wallet*.
  
- **- Ticker**: É o código de uma companhia na bolsa de valores.
+ **- Ticker**: Código de uma *Company* na bolsa de valores.
