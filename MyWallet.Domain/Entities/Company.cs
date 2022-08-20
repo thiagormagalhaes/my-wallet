@@ -1,6 +1,6 @@
 ﻿using MyWallet.Domain.Dto;
-using MyWallet.Domain.Enums;
 using MyWallet.Domain.ValueObjects;
+using Category = MyWallet.Domain.Enums.Category;
 
 namespace MyWallet.Domain.Entities
 {
@@ -30,14 +30,26 @@ namespace MyWallet.Domain.Entities
             Category = category;
         }
 
+        public bool IsRealEstate() => Category == Category.RealEstate;
+
         public void AddTicker(Ticker ticker)
         {
             Tickers.Add(ticker);
         }
 
+        public void AddTicker(string tickerCode)
+        {
+            var tickerDto = new TickerDto(tickerCode, Id, null);
+
+            Tickers.Add(new Ticker(tickerDto));
+        }
+
         public void Update(Administrator administrator)
         {
-            Administrator = administrator;
+            if (IsRealEstate())
+            {
+                Administrator = administrator;
+            }
         }
 
         public void Update(string name)

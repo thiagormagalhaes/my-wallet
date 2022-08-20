@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyWallet.Domain.Dto;
 using MyWallet.Domain.Entities;
-using MyWallet.Domain.Enums;
 using MyWallet.Domain.Extensions;
 using MyWallet.Domain.Interfaces.Repositories;
 using MyWallet.Domain.Interfaces.Services;
 using MyWallet.Domain.ValueObjects;
 using MyWallet.Scraper.Dto;
-using MyWallet.Scraper.Enums;
 using MyWallet.Scraper.Extensions;
 using MyWallet.Scraper.Interfaces;
 using Category = MyWallet.Domain.Enums.Category;
@@ -62,22 +60,27 @@ namespace MyWallet.Domain.Services
 
             foreach (var companyCSV in companiesCSV)
             {
-                if (!companies.ContainsKey(companyCSV.Cnpj))
+                BuildCompanyInDictonary(companies, companyCSV, category);
+
+                companies[companyCSV.Cnpj].AddTicker(companyCSV.Ticker);
+
+                if (!companyCSV.HasAdministrator())
                 {
-                    companies.Add(companyCSV.Cnpj, new Company(companyCSV, category));
+                    continue;
                 }
 
-                var ticker = new Ticker(companyCSV.Ticker);
-
-                companies[companyCSV.Cnpj].AddTicker(ticker);
-
-                if (category == Category.RealEstate)
-                {
-                    companies[companyCSV.Cnpj].Update(administrators[companyCSV.AdministratorCnpj]);
-                }
+                companies[companyCSV.Cnpj].Update(administrators[companyCSV.AdministratorCnpj]);
             }
 
             return new List<Company>(companies.Values);
+        }
+
+        private void BuildCompanyInDictonary(Dictionary<string, Company> companies, CompanyCSV companyCSV, Category category)
+        {
+            if (!companies.ContainsKey(companyCSV.Cnpj))
+            {
+                companies.Add(companyCSV.Cnpj, new Company(companyCSV, category));
+            }
         }
 
         public async Task Create(Category category, string tickerCode)

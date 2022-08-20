@@ -22,4 +22,6 @@ public record CompanyCSV
             AdministratorCnpj = reader.GetString(4);
         }
     }
+
+    public bool HasAdministrator() => !string.IsNullOrEmpty(Administrator) && !string.IsNullOrEmpty(AdministratorCnpj);
 }

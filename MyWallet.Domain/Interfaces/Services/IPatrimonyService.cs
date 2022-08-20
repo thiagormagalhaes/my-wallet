@@ -2,5 +2,6 @@
 {
     public interface IPatrimonyService
     {
+        Task Consolidate();
     }
 }

@@ -1,6 +1,4 @@
-﻿using MyWallet.Domain.Dto;
-
-namespace MyWallet.Domain.Entities
+﻿namespace MyWallet.Domain.Entities
 {
     public class Patrimony : Entity<Guid>
     {
@@ -11,9 +9,9 @@ namespace MyWallet.Domain.Entities
 
         protected Patrimony() { }
 
-        public Patrimony(PatrimonyDto patrimonyDto)
+        public Patrimony(long tickerId)
         {
-
+            TickerId = tickerId;
         }
 
         public decimal InvestedAmount()
@@ -29,6 +27,46 @@ namespace MyWallet.Domain.Entities
             }
 
             return 0;
+        }
+
+        public void Increase(decimal price, int quantity)
+        {
+            var amount = (Price * Quantity) + (price * quantity);
+
+            Quantity += quantity;
+
+            CalculatePrice(amount);
+        }
+        
+        public void Decrease(decimal price, int quantity)
+        {
+            var amount = (Price * Quantity) - (price * quantity);
+
+            Quantity -= quantity;
+
+            CalculatePrice(amount);
+
+            CheckPrice();
+        }
+
+        private void CalculatePrice(decimal amount)
+        {
+            if (Quantity == 0)
+            {
+                return;
+            }
+
+            var price = (amount / Quantity).ToString("F");
+
+            Price = Convert.ToDecimal(price);
+        }
+
+        private void CheckPrice()
+        {
+            if (Quantity == 0)
+            {
+                Price = 0;
+            }
         }
     }
 }
