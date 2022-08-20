@@ -4,7 +4,7 @@ using MyWallet.Domain.ValueObjects;
 
 namespace MyWallet.Domain.Entities
 {
-    public class Company : Entity
+    public class Company : Entity<long>
     {
         public string Name { get; private set; }
         public string Cnpj { get; private set; }
@@ -35,12 +35,12 @@ namespace MyWallet.Domain.Entities
             Tickers.Add(ticker);
         }
 
-        public void UpdateAdministrator(Administrator administrator)
+        public void Update(Administrator administrator)
         {
             Administrator = administrator;
         }
 
-        public void UpdateName(string name)
+        public void Update(string name)
         {
             Name = name;
         }
@@ -48,6 +48,11 @@ namespace MyWallet.Domain.Entities
         public bool HasTicker(string tickerCode)
         {
             return Tickers.Count(x => x.Code == tickerCode.ToUpperInvariant()) > 0;
+        }
+
+        public Ticker GetTicker(string tickerCode)
+        {
+            return Tickers.First(x => x.Code == tickerCode.ToUpperInvariant());
         }
     }
 }

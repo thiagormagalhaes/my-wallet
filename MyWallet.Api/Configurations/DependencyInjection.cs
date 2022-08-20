@@ -29,6 +29,7 @@ namespace MyWallet.Api.Configurations
         {
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<INegociationService, NegociationService>();
+            services.AddScoped<IPatrimonyService, PatrimonyService>();
         }
 
         public static void RegisterRepositories(this IServiceCollection services)
@@ -36,6 +37,7 @@ namespace MyWallet.Api.Configurations
             services.AddScoped<ITickerRepository, TickerRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<INegociationRepository, NegociationRepository>();
+            services.AddScoped<IPatrimonyRepository, PatrimonyRepository>();
         }
     }
 }

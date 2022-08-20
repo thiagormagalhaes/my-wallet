@@ -1,6 +1,6 @@
 ﻿namespace MyWallet.Domain.Entities
 {
-    public class Earning : Entity
+    public class Earning : Entity<long>
     {
         public long TickerId { get; private set; }
         public virtual Ticker Ticker { get; private set; }

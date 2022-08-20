@@ -7,7 +7,7 @@ using Z.EntityFramework.Plus;
 
 namespace MyWallet.Infra.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public class Repository<TEntity, T> : IRepository<TEntity, T> where TEntity : Entity<T>
     {
         protected MyWalletContext _context;
         protected DbSet<TEntity> _set;
@@ -35,7 +35,7 @@ namespace MyWallet.Infra.Repositories
             return await _set.Select(x => x).ToListAsync();
         }
 
-        public virtual async Task<TEntity?> GetById(long id)
+        public virtual async Task<TEntity?> GetById(T id)
         {
             return await _set.FindAsync(id);
         }
@@ -45,7 +45,7 @@ namespace MyWallet.Infra.Repositories
             return await Task.FromResult(_set.Where(filterExpression));
         }
 
-        public async Task Remove(params long[] ids)
+        public async Task Remove(params T[] ids)
         {
             _set.Where(d => ids.Contains(d.Id)).Delete();
             await SaveChanges();

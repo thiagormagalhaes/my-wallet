@@ -2,7 +2,7 @@
 
 namespace MyWallet.Domain.Interfaces.Repositories
 {
-    public interface ITickerRepository : IRepository<Ticker, long>
+    public interface IPatrimonyRepository : IRepository<Patrimony, Guid>
     {
     }
 }

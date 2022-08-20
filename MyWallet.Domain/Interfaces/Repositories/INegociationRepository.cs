@@ -2,7 +2,7 @@
 
 namespace MyWallet.Domain.Interfaces.Repositories
 {
-    public interface INegociationRepository : IRepository<Negociation>
+    public interface INegociationRepository : IRepository<Negociation, long>
     {
     }
 }

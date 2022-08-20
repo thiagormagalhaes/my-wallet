@@ -13,6 +13,8 @@ namespace MyWallet.Domain.Services
 {
     public class NegociationService : INegociationService
     {
+        private const string BuyOperation = "C";
+
         private readonly INotifier _notifier;
         private readonly INegociationRepository _negociationRepository;
         private readonly ITickerRepository _tickerRepository;
@@ -84,7 +86,7 @@ namespace MyWallet.Domain.Services
 
         private OperationType GetOperationType(string operationType)
         {
-            if (operationType == "C")
+            if (operationType == BuyOperation)
             {
                 return OperationType.Buy;
             }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MyWallet.Infra.Repositories
 {
-    public class CompanyRepository : Repository<Company>, ICompanyRepository
+    public class CompanyRepository : Repository<Company, long>, ICompanyRepository
     {
         public CompanyRepository(MyWalletContext _context) : base(_context) { }
 

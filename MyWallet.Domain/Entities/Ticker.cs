@@ -2,7 +2,7 @@
 
 namespace MyWallet.Domain.Entities
 {
-    public class Ticker : Entity
+    public class Ticker : Entity<long>
     {
         public string Code { get; private set; }
         public long CompanyId { get; private set; }
@@ -20,7 +20,7 @@ namespace MyWallet.Domain.Entities
 
             if (tickerDto.Price.HasValue)
             {
-                UpdatePrice(tickerDto.Price.Value);
+                Update(tickerDto.Price.Value);
             }
         }
 
@@ -29,7 +29,7 @@ namespace MyWallet.Domain.Entities
             Code = code;
         }
 
-        public void UpdatePrice(decimal price)
+        public void Update(decimal price)
         {
             Price = price;
             UpdateDate = DateTime.Now;

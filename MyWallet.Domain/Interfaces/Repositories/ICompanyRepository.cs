@@ -2,7 +2,7 @@
 
 namespace MyWallet.Domain.Interfaces.Repositories
 {
-    public interface ICompanyRepository : IRepository<Company>
+    public interface ICompanyRepository : IRepository<Company, long>
     {
         Task<Company?> GetByCnpjAsync(string cnpj);
     }

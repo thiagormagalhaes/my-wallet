@@ -3,6 +3,7 @@
     public enum OperationType
     {
         Buy = 1,
-        Sell = 2
+        Sell = 2,
+        Bonus = 3
     }
 }

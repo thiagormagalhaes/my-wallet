@@ -4,7 +4,7 @@ using MyWallet.Domain.ValueObjects;
 
 namespace MyWallet.Domain.Entities
 {
-    public class Negociation : Entity
+    public class Negociation : Entity<long>
     {
         public DateTime DateOperation { get; private set; }
         public long TickerId { get; private set; }

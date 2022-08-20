@@ -31,10 +31,18 @@ namespace MyWallet.Api.Controllers
             return Response();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> CreateOrUpdate(Category category, string tickerCode)
+        [HttpPost]
+        public async Task<IActionResult> Create(Category category, string tickerCode)
         {
-            await _companyService.CreateOrUpdate(category, tickerCode);
+            await _companyService.Create(category, tickerCode);
+
+            return Response();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(Category category, string tickerCode)
+        {
+            await _companyService.Update(category, tickerCode);
 
             return Response();
         }

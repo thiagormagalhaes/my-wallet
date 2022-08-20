@@ -4,7 +4,7 @@ using MyWallet.Infra.Data.Context;
 
 namespace MyWallet.Infra.Repositories
 {
-    public class NegociationRepository : Repository<Negociation>, INegociationRepository
+    public class NegociationRepository : Repository<Negociation, long>, INegociationRepository
     {
         public NegociationRepository(MyWalletContext context) : base(context) { }
     }

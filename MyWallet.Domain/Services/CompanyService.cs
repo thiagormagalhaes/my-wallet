@@ -73,14 +73,84 @@ namespace MyWallet.Domain.Services
 
                 if (category == Category.RealEstate)
                 {
-                    companies[companyCSV.Cnpj].UpdateAdministrator(administrators[companyCSV.AdministratorCnpj]);
+                    companies[companyCSV.Cnpj].Update(administrators[companyCSV.AdministratorCnpj]);
                 }
             }
 
             return new List<Company>(companies.Values);
         }
 
-        public async Task CreateOrUpdate(Category category, string tickerCode)
+        public async Task Create(Category category, string tickerCode)
+        {
+            var scraperStrategyResponse = await _scraperStrategyResolver.FindStrategy(category.GetHashCode())
+                .Execute(tickerCode);
+
+            if (!scraperStrategyResponse.IsValid())
+            {
+                return;
+            }
+
+            var company = await CreateCompany(category, scraperStrategyResponse);
+
+            await CreateTicker(company, scraperStrategyResponse, tickerCode);
+        }
+
+        private async Task<Company> CreateCompany(Category category, ScraperStrategyResponse scraperStrategyResponse)
+        {
+            var company = await _companyRepository.GetByCnpjAsync(scraperStrategyResponse.Cnpj);
+
+            if (company is not null)
+            {
+                return company;
+            }
+
+            company = BuildCompany(category, scraperStrategyResponse);
+
+            await _companyRepository.Add(company);
+
+            return company;
+        }
+
+        private Company BuildCompany(Category category, ScraperStrategyResponse scraperStrategyResponse)
+        {
+            var companyDto = BuildCompanyDto(category, scraperStrategyResponse);
+
+            return new Company(companyDto);
+        }
+
+        // TODO: Contemplar as Company que possuem Administrator
+        private CompanyDto BuildCompanyDto(Category category, ScraperStrategyResponse scraperStrategyResponse)
+        {
+            return new CompanyDto(
+                scraperStrategyResponse.Name,
+                scraperStrategyResponse.Cnpj,
+                category,
+                null
+            );
+        }
+
+        private async Task CreateTicker(Company company, ScraperStrategyResponse scraperStrategyResponse, string tickerCode)
+        {
+            if (company.HasTicker(tickerCode))
+            {
+                return;
+            }
+
+            var ticker = BuildTicker(company, tickerCode, scraperStrategyResponse.GetPrice());
+
+            company.AddTicker(ticker);
+
+            await _companyRepository.Update(company);
+        }
+
+        private Ticker BuildTicker(Company company, string tickerCode, decimal? price)
+        {
+            var tickerDto = new TickerDto(tickerCode, company.Id, price);
+
+            return new Ticker(tickerDto);
+        }
+
+        public async Task Update(Category category, string tickerCode)
         {
             var scraperStrategyResponse = await _scraperStrategyResolver.FindStrategy(category.GetHashCode())
                 .Execute(tickerCode);
@@ -94,52 +164,17 @@ namespace MyWallet.Domain.Services
 
             if (company is null)
             {
-                company = await Create(category, scraperStrategyResponse);
-            } else
-            {
-                company.UpdateName(scraperStrategyResponse.Name);
-                await _companyRepository.Update(company);
+                return;
             }
 
-            if (!company.HasTicker(tickerCode))
+            company.Update(scraperStrategyResponse.Name);
+
+            if (company.HasTicker(tickerCode))
             {
-                await AddTicker(company, tickerCode, scraperStrategyResponse.GetPrice());
+                company.GetTicker(tickerCode).Update(scraperStrategyResponse.GetPrice());
             }
-
-            // TODO: Contemplar as Company que possuem Administrator
-        }
-
-        private async Task<Company> Create(Category category, ScraperStrategyResponse scraperStrategyResponse)
-        {
-            var companyDto = BuildCompanyDto(category, scraperStrategyResponse);
-
-            var company = new Company(companyDto);
-
-            await _companyRepository.Add(company);
-
-            return company;
-        }
-
-        private async Task AddTicker(Company company, string tickerCode, decimal price)
-        {
-            var tickerDto = new TickerDto(tickerCode, company.Id, price);
-
-            var ticker = new Ticker(tickerDto);
-
-            company.AddTicker(ticker);
 
             await _companyRepository.Update(company);
-        }
-
-        // TODO: Contemplar as Company que possuem Administrator
-        private CompanyDto BuildCompanyDto(Category category, ScraperStrategyResponse scraperStrategyResponse)
-        {
-            return new CompanyDto(
-                scraperStrategyResponse.Name,
-                scraperStrategyResponse.Cnpj,
-                category,
-                null
-            );
         }
     }
 }
