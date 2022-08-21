@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MyWallet.Api.AutoMapper;
 using MyWallet.Api.Configurations;
 using MyWallet.Infra.Data.Context;
 
@@ -8,6 +9,9 @@ builder.Services.ResolveDependencies();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(AutoMapperConfiguration));
+
+AutoMapperConfiguration.RegisterMappings();
 
 builder.Services.AddDbContextPool<MyWalletContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyWalletDataBase"))

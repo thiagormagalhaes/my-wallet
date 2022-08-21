@@ -21,5 +21,13 @@ namespace MyWallet.Api.Controllers
 
             return Response();
         }
+
+        [HttpPut("update-prices")]
+        public async Task<IActionResult> UpdatePrices()
+        {
+            await _patrimonyService.UpdatePrices();
+
+            return Response();
+        }
     }
 }

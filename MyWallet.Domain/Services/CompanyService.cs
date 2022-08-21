@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AngleSharp.Dom;
+using Microsoft.AspNetCore.Http;
 using MyWallet.Domain.Dto;
 using MyWallet.Domain.Entities;
 using MyWallet.Domain.Extensions;
@@ -8,6 +9,8 @@ using MyWallet.Domain.ValueObjects;
 using MyWallet.Scraper.Dto;
 using MyWallet.Scraper.Extensions;
 using MyWallet.Scraper.Interfaces;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Category = MyWallet.Domain.Enums.Category;
 
 namespace MyWallet.Domain.Services
@@ -178,6 +181,22 @@ namespace MyWallet.Domain.Services
             }
 
             await _companyRepository.Update(company);
+        }
+
+        public async Task<IList<Company>> GetByCategory(Category? category)
+        {
+            return (await _companyRepository.FilterBy(FilterByCategory(category)))
+            .ToList();
+        }
+
+        private Expression<Func<Company, bool>> FilterByCategory(Category? category) =>
+            x => (x.Category == category && category != null) || (category == null);
+
+        public async Task<Company?> GetByTickerCode(string tickerCode)
+        {
+            var companies = await _companyRepository.FilterBy(x => x.Tickers.Select(x => x.Code).Contains(tickerCode));
+
+            return companies.FirstOrDefault();
         }
     }
 }

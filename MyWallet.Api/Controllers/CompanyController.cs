@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWallet.Api.Application.Interfaces;
 using MyWallet.Domain.Enums;
 using MyWallet.Domain.Interfaces.Services;
 using MyWallet.Domain.Notifications;
@@ -9,10 +10,13 @@ namespace MyWallet.Api.Controllers
     public class CompanyController : MainController
     {
         private readonly ICompanyService _companyService;
+        private readonly ICompanyApplication _companyApplication;
 
-        public CompanyController(ICompanyService companyService, INotifier notifier) : base(notifier)
+        public CompanyController(ICompanyService companyService, ICompanyApplication companyApplication, INotifier notifier) 
+            : base(notifier)
         {
             _companyService = companyService;
+            _companyApplication = companyApplication;
         }
 
         [HttpPost("import-stocks")]
@@ -45,6 +49,22 @@ namespace MyWallet.Api.Controllers
             await _companyService.Update(category, tickerCode);
 
             return Response();
+        }
+
+        [HttpGet("{tickerCode}")]
+        public async Task<IActionResult> GetByTickerCode(string tickerCode)
+        {
+            var company = await _companyApplication.GetByTickerCode(tickerCode);
+
+            return Response(company);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetByCategory([FromQuery] Category? category)
+        {
+            var companies = await _companyApplication.GetByCategory(category);
+
+            return Response(companies);
         }
     }
 }

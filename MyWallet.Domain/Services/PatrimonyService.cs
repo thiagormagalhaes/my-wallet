@@ -2,6 +2,9 @@
 using MyWallet.Domain.Enums;
 using MyWallet.Domain.Interfaces.Repositories;
 using MyWallet.Domain.Interfaces.Services;
+using MyWallet.Scraper.Enums;
+using MyWallet.Scraper.Extensions;
+using MyWallet.Scraper.Interfaces;
 
 namespace MyWallet.Domain.Services
 {
@@ -9,11 +12,13 @@ namespace MyWallet.Domain.Services
     {
         private readonly IPatrimonyRepository _patrimonyRepository;
         private readonly INegociationRepository _negociationRepository;
+        private readonly IScraperStrategyResolver _scraperStrategyResolver;
 
-        public PatrimonyService(IPatrimonyRepository patrimonyRepository, INegociationRepository negociationRepository)
+        public PatrimonyService(IPatrimonyRepository patrimonyRepository, INegociationRepository negociationRepository, IScraperStrategyResolver scraperStrategyResolver)
         {
             _patrimonyRepository = patrimonyRepository;
             _negociationRepository = negociationRepository;
+            _scraperStrategyResolver = scraperStrategyResolver;
         }
 
         public async Task Consolidate()
@@ -63,6 +68,26 @@ namespace MyWallet.Domain.Services
             {
                 consolidation[negociation.TickerId].Decrease(negociation.UnitPrice, negociation.Quantity);
             }
+        }
+
+        public async Task UpdatePrices()
+        {
+            var patrimonies = await _patrimonyRepository.GetAll();
+
+            foreach (var patrimony in patrimonies)
+            {
+                var scraperStrategyResponse = await _scraperStrategyResolver.FindStrategy(patrimony.Ticker.Company.Category.GetHashCode())
+                    .Execute(patrimony.Ticker.Code);
+
+                if (!scraperStrategyResponse.IsValid())
+                {
+                    continue;
+                }
+
+                patrimony.Ticker.Update(scraperStrategyResponse.GetPrice());
+            }
+
+            await _patrimonyRepository.Update(patrimonies);
         }
     }
 }

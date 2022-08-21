@@ -3,5 +3,6 @@
     public interface IPatrimonyService
     {
         Task Consolidate();
+        Task UpdatePrices();
     }
 }

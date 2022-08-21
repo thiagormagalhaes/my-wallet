@@ -1,4 +1,6 @@
-﻿using MyWallet.Domain.Interfaces.Repositories;
+﻿using MyWallet.Api.Application;
+using MyWallet.Api.Application.Interfaces;
+using MyWallet.Domain.Interfaces.Repositories;
 using MyWallet.Domain.Interfaces.Services;
 using MyWallet.Domain.Notifications;
 using MyWallet.Domain.Services;
@@ -16,6 +18,7 @@ namespace MyWallet.Api.Configurations
             services.AddScrapperStrategy();
 
             RegisterContexts(services);
+            RegisterApplication(services);
             RegisterServices(services);
             RegisterRepositories(services);
         }
@@ -23,6 +26,11 @@ namespace MyWallet.Api.Configurations
         public static void RegisterContexts(this IServiceCollection services)
         {
             services.AddScoped<MyWalletContext>();
+        }
+
+        public static void RegisterApplication(this IServiceCollection services)
+        {
+            services.AddScoped<ICompanyApplication, CompanyApplication>();
         }
 
         public static void RegisterServices(this IServiceCollection services)

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AngleSharp.Dom;
+using Microsoft.EntityFrameworkCore;
 using MyWallet.Domain.Entities;
 using MyWallet.Domain.Interfaces.Repositories;
 using MyWallet.Infra.Data.Context;
@@ -73,6 +74,22 @@ namespace MyWallet.Infra.Repositories
             }
 
             _context.Entry(exist).CurrentValues.SetValues(entity);
+
+            await SaveChanges();
+        }
+
+        public async Task Update(IList<TEntity> entities)
+        {
+            var ids = entities.Select(x => x.Id);
+
+            var exists = _set.Where(x => ids.Contains(x.Id));
+
+            foreach (var exist in exists)
+            {
+                var entity = entities.First(x => x.Id is not null && x.Id.Equals(exist.Id));
+
+                _context.Entry(exist).CurrentValues.SetValues(entity);
+            }
 
             await SaveChanges();
         }

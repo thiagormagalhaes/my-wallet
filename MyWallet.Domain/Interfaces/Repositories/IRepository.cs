@@ -10,6 +10,7 @@ namespace MyWallet.Domain.Interfaces.Repositories
         Task<TEntity?> GetById(T id);
         Task<IQueryable<TEntity>> FilterBy(Expression<Func<TEntity, bool>> filterExpression);
         Task Update(TEntity entity);
+        Task Update(IList<TEntity> entities);
         Task Remove(params T[] ids);
         Task Remove(TEntity entity);
         Task RemoveAll();
