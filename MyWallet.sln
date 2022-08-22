@@ -17,6 +17,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.Infra", "MyWallet.Infra\MyWallet.Infra.csproj", "{D5842872-419A-47C8-A628-D4B71F3D3106}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.Test", "MyWallet.Test\MyWallet.Test.csproj", "{755DAE49-FEEE-4180-A44D-8C8603886F8D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{47F8C551-46DE-4D8C-9CE2-611D77809A2A} = {47F8C551-46DE-4D8C-9CE2-611D77809A2A}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D83652C-F6E0-4E3C-9A89-E8A5E77F4929}"
 	ProjectSection(SolutionItems) = preProject

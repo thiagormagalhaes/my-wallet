@@ -38,6 +38,7 @@ namespace MyWallet.Api.Configurations
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<INegociationService, NegociationService>();
             services.AddScoped<IPatrimonyService, PatrimonyService>();
+            services.AddScoped<IRecommendedWalletService, RecommendedWalletService>();
         }
 
         public static void RegisterRepositories(this IServiceCollection services)
@@ -46,6 +47,7 @@ namespace MyWallet.Api.Configurations
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<INegociationRepository, NegociationRepository>();
             services.AddScoped<IPatrimonyRepository, PatrimonyRepository>();
+            services.AddScoped<IRecommendedWalletRepository, RecommendedWalletRepository>();
         }
     }
 }

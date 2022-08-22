@@ -1,22 +1,28 @@
-﻿namespace MyWallet.Domain.Entities
+﻿using MyWallet.Domain.Dto;
+
+namespace MyWallet.Domain.Entities
 {
     public class RecommendedWallet : Entity<long>
     {
         public string Description { get; private set; }
         public decimal Weight { get; private set; }
+        public bool Active { get; private set; }
         public virtual IList<Recommendation> Recommendations { get; private set; } = new List<Recommendation>();
 
         protected RecommendedWallet() { }
 
-        public RecommendedWallet(string description, decimal weight)
+        public RecommendedWallet(RecommendedWalletDto recommendedWalletDto)
         {
-            Description = description;
-            Weight = weight;
+            Description = recommendedWalletDto.Description;
+            Weight = recommendedWalletDto.Weight;
+            Active = recommendedWalletDto.Active;
         }
 
-        public void AddRecommendation(long tickerId, decimal weight, decimal limitePrice)
+        public void AddRecommendation(Recommendation recommendation)
         {
-            Recommendations.Add(new Recommendation(tickerId, weight, limitePrice));
+            Recommendations.Add(recommendation);
         }
+
+        public DateTime? LastPriceUpdate() => Recommendations.Select(x => x.Ticker.UpdateDate).Min();
     }
 }
