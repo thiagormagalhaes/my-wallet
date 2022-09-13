@@ -58,13 +58,5 @@ namespace MyWallet.Api.Controllers
 
             return Response(company);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetByCategory([FromQuery] Category? category)
-        {
-            var companies = await _companyApplication.GetByCategory(category);
-
-            return Response(companies);
-        }
     }
 }

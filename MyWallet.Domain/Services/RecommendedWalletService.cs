@@ -77,38 +77,21 @@ namespace MyWallet.Domain.Services
             await _tickerRepository.Update(tickers);
         }
 
-        public async Task<IList<RecommendationBuy>> RecommendationsBuy()
+        public async Task<IList<Recommendation>> AllRecommendationsBuy()
         {
             var recommendedWallets = await _recommendedWalletRepository.GetAll();
+
+            recommendedWallets = recommendedWallets.Where(x => x.Active).ToList();
 
             var recommendations = new List<Recommendation>();
 
             foreach (var wallet in recommendedWallets)
             {
-                recommendations.AddRange(wallet.Recommendations);
+                recommendations.AddRange(wallet.Recommendations.Where(x => x.Active));
             }
 
-            var recommendationsBuy = new List<RecommendationBuy>();
-
-            foreach (var recommendation in recommendations)
-            {
-                if (!recommendation.HasBuyRecommendation())
-                {
-                    continue;
-                }
-
-                recommendationsBuy.Add(new RecommendationBuy(
-                    recommendation.Ticker.Company.Category.ToString(),
-                    recommendation.Ticker.Code,
-                    recommendation.Discount(),
-                    0,
-                    recommendation.Ticker.Price,
-                    0
-                ));
-            }
-
-            return recommendationsBuy
-                .OrderByDescending(x => x.Discount)
+            return recommendations
+                .Where(x => x.HasBuyRecommendation())
                 .ToList();
         }
     }

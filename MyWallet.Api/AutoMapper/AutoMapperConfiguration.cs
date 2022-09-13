@@ -8,6 +8,7 @@ namespace MyWallet.Api.AutoMapper
         {
             return new MapperConfiguration(cfg =>
             {
+                cfg.AddProfile(new DtoToResponseProfile());
                 cfg.AddProfile(new EntityToResponseProfile());
             });
         }

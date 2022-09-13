@@ -31,6 +31,8 @@ namespace MyWallet.Api.Configurations
         public static void RegisterApplication(this IServiceCollection services)
         {
             services.AddScoped<ICompanyApplication, CompanyApplication>();
+            services.AddScoped<IPatrimonyApplication, PatrimonyApplication>();
+            services.AddScoped<IRecommendedWalletApplication, RecommendedWalletApplication>();
         }
 
         public static void RegisterServices(this IServiceCollection services)

@@ -183,12 +183,6 @@ namespace MyWallet.Domain.Services
             await _companyRepository.Update(company);
         }
 
-        public async Task<IList<Company>> GetByCategory(Category? category)
-        {
-            return (await _companyRepository.FilterBy(FilterByCategory(category)))
-            .ToList();
-        }
-
         private Expression<Func<Company, bool>> FilterByCategory(Category? category) =>
             x => (x.Category == category && category != null) || (category == null);
 

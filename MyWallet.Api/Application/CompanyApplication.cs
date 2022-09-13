@@ -18,13 +18,6 @@ namespace MyWallet.Api.Application
             _companyService = companyService;
         }
 
-        public async Task<IList<CompanyResponse>> GetByCategory(Category? category)
-        {
-            var companies = await _companyService.GetByCategory(category);
-
-            return _mapper.Map<List<CompanyResponse>>(companies);
-        }
-
         public async Task<CompanyResponse> GetByTickerCode(string tickerCode)
         {
             var company = await _companyService.GetByTickerCode(tickerCode);

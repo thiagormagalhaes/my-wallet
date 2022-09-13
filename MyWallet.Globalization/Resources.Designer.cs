@@ -61,6 +61,15 @@ namespace MyWallet.Globalization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a É necessário atualizar o preço do {0}..
+        /// </summary>
+        public static string PriceNotFound {
+            get {
+                return ResourceManager.GetString("PriceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Ticker {0} não encontrado..
         /// </summary>
         public static string TickerNotFound {

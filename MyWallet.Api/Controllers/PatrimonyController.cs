@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWallet.Api.Application.Interfaces;
 using MyWallet.Domain.Interfaces.Services;
 using MyWallet.Domain.Notifications;
 
@@ -8,10 +9,12 @@ namespace MyWallet.Api.Controllers
     public class PatrimonyController : MainController
     {
         private readonly IPatrimonyService _patrimonyService;
+        private readonly IPatrimonyApplication _patrimonyApplication;
 
-        public PatrimonyController(IPatrimonyService patrimonyService, INotifier notifier) : base(notifier)
+        public PatrimonyController(IPatrimonyService patrimonyService, IPatrimonyApplication patrimonyApplication, INotifier notifier) : base(notifier)
         {
             _patrimonyService = patrimonyService;
+            _patrimonyApplication = patrimonyApplication;
         }
 
         [HttpPost("consolidate")]
@@ -28,6 +31,14 @@ namespace MyWallet.Api.Controllers
             await _patrimonyService.UpdatePrices();
 
             return Response();
+        }
+
+        [HttpGet("balancing")]
+        public async Task<IActionResult> Balancing()
+        {
+            var result = await _patrimonyApplication.Balancing();
+
+            return Response(result);
         }
     }
 }

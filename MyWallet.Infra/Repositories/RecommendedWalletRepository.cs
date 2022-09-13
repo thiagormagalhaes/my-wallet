@@ -16,7 +16,7 @@ namespace MyWallet.Infra.Repositories
             return await Task.FromResult(_set.Include(x => x.Recommendations).ThenInclude(x => x.Ticker).Where(filterExpression));
         }
 
-        public virtual async Task<IList<RecommendedWallet>> GetAll()
+        public override async Task<IList<RecommendedWallet>> GetAll()
         {
             return await _set.Select(x => x)
                 .Include(x => x.Recommendations)
